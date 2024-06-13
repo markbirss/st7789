@@ -1,0 +1,34 @@
+{
+  "name": "ESP8266 and ESP32 TFT driver for st7789 displays",
+  "version": "4.3.0",
+  "keywords": "st7789, TFT, display, spi",
+  "description": "spi display driver for st7789 TFT displays connected to ESP8266, ESP32, Mbed-OS",
+  "license": "MIT",
+  "repository":
+  {
+    "type": "git",
+    "url": ""
+  },
+  "authors":
+  [
+    {
+        "name": "Daniel Eichhorn, ThingPulse",
+        "email": "squix78@gmail.com",
+        "url": "https://thingpulse.com"
+    },
+    {
+        "name": "Fabrice Weinberg",
+        "email": "fabrice@weinberg.me"
+    },
+    {
+        "name": "Heltec AutoMation",
+        "email": ""
+    }
+  ],
+  "frameworks": "arduino",
+  "platforms": [
+    "espressif8266",
+    "espressif32",
+    "nordicnrf52"
+  ]
+}
