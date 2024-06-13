@@ -3,7 +3,7 @@
  *
  * Copyright (c) 2018 by ThingPulse, Daniel Eichhorn
  * Copyright (c) 2018 by Fabrice Weinberg
- *
+ * Copyright (c) 2024 by Heltec AutoMation
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -221,8 +221,8 @@ class ST7789Spi : public OLEDDisplay {
               //setAddrWindow(minBoundX,y*8+temp,maxBoundX-minBoundX+1,1);
               //setAddrWindow(minBoundX,y*8+temp,maxBoundX-minBoundX+1,1);
               setAddrWindow(y*8+temp,0,1,displayWidth);
-			  uint32_t const pixbufcount = displayWidth;
-			  uint16_t *pixbuf = (uint16_t *)rtos_malloc(2 * pixbufcount);
+              uint32_t const pixbufcount = displayWidth;
+              uint16_t *pixbuf = (uint16_t *)rtos_malloc(2 * pixbufcount);
               for (x = 0; x < displayWidth; x++)
               {
                 pixbuf[x] = ((buffer[x + y * displayWidth]>>temp)&0x01)==1?_RGB:0;
@@ -232,7 +232,7 @@ class ST7789Spi : public OLEDDisplay {
 #else
               _spi->transfer(pixbuf, NULL, 2 * pixbufcount);
 #endif
-			  rtos_free(pixbuf);
+              rtos_free(pixbuf);
             }
           }
 	  _spi->endTransaction();
@@ -261,43 +261,12 @@ class ST7789Spi : public OLEDDisplay {
 	WriteData(madctl);
 	delay(10);
   }
-/*
-  void rotate() {
-	uint8_t madctl = ST77XX_MADCTL_RGB|ST77XX_MADCTL_MV;
-	sendCommand(ST77XX_MADCTL);
-	WriteData(madctl);
-	delay(10);
-  }
-*/
+
   void setRGB(uint16_t c)
   {
 
     this->_RGB=0x00|c>>8|c<<8&0xFF00;
   }
-
-/*
-	void clear(void) {
-	memset(buffer, 0, displayBufferSize);
-	memset(buffer_back, 0, displayBufferSize);
-	  set_CS(LOW);
-	  _spi->beginTransaction(_spiSettings);
-
-	  for (int i=0;i<displayHeight;i++)
-	  {
-	  	setAddrWindow(0,i,displayWidth,1);
-		uint32_t const pixbufcount = displayWidth;
-		uint16_t *pixbuf = (uint16_t *)rtos_malloc(2 * pixbufcount);
-	    for (uint32_t i = 0; i < pixbufcount; i++) {
-	      pixbuf[i] = 0x0;
-	    }
-		_spi->transfer(pixbuf, NULL, 2 * displayWidth);
-		rtos_free(pixbuf);
-	}
-	  _spi->endTransaction();
-	  set_CS(HIGH);
-	  
-  }
-*/
 
 //#define ST77XX_MADCTL_MY 0x80
 //#define ST77XX_MADCTL_MX 0x40
@@ -350,46 +319,14 @@ class ST7789Spi : public OLEDDisplay {
         WriteData(madctl);
         delay(10);
         setRGB(ST77XX_GREEN);
-/*
-		  set_CS(LOW);
-		  _spi->beginTransaction(_spiSettings);
-
-
-              //setAddrWindow(minBoundX,y*8+temp,maxBoundX-minBoundX+1,1);
-              setAddrWindow(0,168,320,1);
-              //setAddrWindow(y*8+temp,minBoundX,1,maxBoundX-minBoundX+1);
-              uint32_t const pixbufcount = 320;
-              uint16_t *pixbuf = (uint16_t *)rtos_malloc(2 * pixbufcount);
-              for (int x = 0; x <= 319; x++)
-              {
-                pixbuf[x] = 0;
-              }
-#ifdef ESP_PLATFORM
-              _spi->transferBytes((uint8_t *)pixbuf, NULL, 2 * pixbufcount);
-#else
-              _spi->transfer(pixbuf, NULL, 2 * pixbufcount);
-#endif
-              setAddrWindow(0,169,320,1);
-#ifdef ESP_PLATFORM
-              _spi->transferBytes((uint8_t *)pixbuf, NULL, 2 * pixbufcount);
-#else
-              _spi->transfer(pixbuf, NULL, 2 * pixbufcount);
-#endif
-              rtos_free(pixbuf);
-
-	  _spi->endTransaction();
-	  set_CS(HIGH);
-*/
     }
 
 
   private:
 
    void setAddrWindow(uint16_t x, uint16_t y, uint16_t w, uint16_t h) {
-    //x += 52;
-    //y += 40;
-    //x += 52;
-    y += 35;
+    x += (320-displayWidth)/2;
+    y += (240-displayHeight)/2;
     uint32_t xa = ((uint32_t)x << 16) | (x + w - 1);
     uint32_t ya = ((uint32_t)y << 16) | (y + h - 1);
 

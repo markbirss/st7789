@@ -4,7 +4,7 @@
  * Copyright (c) 2018 by ThingPulse, Daniel Eichhorn
  * Copyright (c) 2018 by Fabrice Weinberg
  * Copyright (c) 2019 by Helmut Tschemernjak - www.radioshuttle.de
- *
+ * Copyright (c) 2024 by Heltec AutoMation
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
