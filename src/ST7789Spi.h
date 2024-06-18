@@ -267,7 +267,15 @@ class ST7789Spi : public OLEDDisplay {
 
     this->_RGB=0x00|c>>8|c<<8&0xFF00;
   }
+  
+  void displayOn(void) {
+  //sendCommand(DISPLAYON);
+  }
 
+  void displayOff(void) {
+  //sendCommand(DISPLAYOFF);
+  }
+  
 //#define ST77XX_MADCTL_MY 0x80
 //#define ST77XX_MADCTL_MX 0x40
 //#define ST77XX_MADCTL_MV 0x20
@@ -415,13 +423,7 @@ class ST7789Spi : public OLEDDisplay {
     this->displayBufferSize = displayWidth * _buffheight ;
   }
   
-  void displayOn(void) {
-  //sendCommand(DISPLAYON);
-  }
 
-  void displayOff(void) {
-  //sendCommand(DISPLAYOFF);
-  }
 
 };
 
