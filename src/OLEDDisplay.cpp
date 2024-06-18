@@ -994,8 +994,6 @@ void OLEDDisplay::setGeometry(OLEDDISPLAY_GEOMETRY g, uint16_t width, uint16_t h
 
   if(tmp!=0)
   	_buffheight++;
-  Serial.println(displayWidth);
-	Serial.println(_buffheight);
   this->displayBufferSize = displayWidth * _buffheight ;
 }
 

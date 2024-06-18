@@ -116,7 +116,7 @@ class ST7789Spi : public OLEDDisplay {
       this->_mosi=mosi;
       this->_miso=miso;
       this->_clk=clk;
-      this->_ledA  = _ledA;
+      //this->_ledA  = _ledA;
       _spiSettings = SPISettings(40000000, MSBFIRST, SPI_MODE0);
       setGeometry(g,width,height);
     }
@@ -377,6 +377,51 @@ class ST7789Spi : public OLEDDisplay {
     digitalWrite(_dc, HIGH);
   }
 
+// Private functions
+  void setGeometry(OLEDDISPLAY_GEOMETRY g, uint16_t width, uint16_t height) {
+    this->geometry = g;
+
+    switch (g) {
+      case GEOMETRY_128_128:
+        this->displayWidth = 128;
+        this->displayHeight = 128;
+        break;
+      case GEOMETRY_128_64:
+        this->displayWidth = 128;
+        this->displayHeight = 64;
+        break;
+      case GEOMETRY_128_32:
+        this->displayWidth = 128;
+        this->displayHeight = 32;
+        break;
+      case GEOMETRY_64_48:
+        this->displayWidth = 64;
+        this->displayHeight = 48;
+        break;
+      case GEOMETRY_64_32:
+        this->displayWidth = 64;
+        this->displayHeight = 32;
+        break;
+      case GEOMETRY_RAWMODE:
+        this->displayWidth = width > 0 ? width : 128;
+        this->displayHeight = height > 0 ? height : 64;
+        break;
+    }
+    uint8_t tmp=displayHeight % 8;
+    uint8_t _buffheight=displayHeight / 8;
+
+    if(tmp!=0)
+      _buffheight++;
+    this->displayBufferSize = displayWidth * _buffheight ;
+  }
+  
+  void displayOn(void) {
+  //sendCommand(DISPLAYON);
+  }
+
+  void displayOff(void) {
+  //sendCommand(DISPLAYOFF);
+  }
 
 };
 
