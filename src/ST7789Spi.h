@@ -242,21 +242,21 @@ class ST7789Spi : public OLEDDisplay {
     }
 
  virtual void resetOrientation() {
-	uint8_t madctl = ST77XX_MADCTL_RGB|ST77XX_MADCTL_MX;
+	uint8_t madctl = ST77XX_MADCTL_RGB|ST77XX_MADCTL_MV|ST77XX_MADCTL_MX;
 	sendCommand(ST77XX_MADCTL);
 	WriteData(madctl);
 	delay(10);
   }
   
  virtual void flipScreenVertically() {
-	uint8_t madctl = ST77XX_MADCTL_RGB;
+	uint8_t madctl = ST77XX_MADCTL_RGB|ST77XX_MADCTL_MV|ST77XX_MADCTL_MY;
 	sendCommand(ST77XX_MADCTL);
 	WriteData(madctl);
 	delay(10);
   }
   
  virtual void mirrorScreen() {
-	uint8_t madctl = ST77XX_MADCTL_RGB|ST77XX_MADCTL_MX|ST77XX_MADCTL_MY;
+	uint8_t madctl = ST77XX_MADCTL_RGB|ST77XX_MADCTL_MV|ST77XX_MADCTL_MX|ST77XX_MADCTL_MY;
 	sendCommand(ST77XX_MADCTL);
 	WriteData(madctl);
 	delay(10);
@@ -322,7 +322,7 @@ class ST7789Spi : public OLEDDisplay {
         delay(10);
 
         //uint8_t madctl = ST77XX_MADCTL_RGB|ST77XX_MADCTL_MX;
-        uint8_t madctl = ST77XX_MADCTL_RGB|ST77XX_MADCTL_MV|ST77XX_MADCTL_MY;
+        uint8_t madctl = ST77XX_MADCTL_RGB|ST77XX_MADCTL_MV|ST77XX_MADCTL_MX;
         sendCommand(ST77XX_MADCTL);
         WriteData(madctl);
         delay(10);
