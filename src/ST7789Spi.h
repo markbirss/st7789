@@ -318,7 +318,8 @@ class ST7789Spi : public OLEDDisplay {
         sendCommand(ST77XX_DISPON); //  9: Main screen turn on, no args, delay
         delay(10);
 
-        sendCommand(ST77XX_INVON); //  10: invert
+        //sendCommand(ST77XX_INVON); //  10: invert
+        sendCommand(ST77XX_INVOFF); //  10: invert
         delay(10);
 
         //uint8_t madctl = ST77XX_MADCTL_RGB|ST77XX_MADCTL_MX;
