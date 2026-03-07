@@ -393,7 +393,8 @@ class ST7789Spi : public OLEDDisplay {
       
         //  Memory Data Access Control (MADCTL) - MX=1, DO=1	
         sendCommand(0x36);
-        WriteData(0x48);
+        //WriteData(0x48);
+        WriteData(0x38);
       
         // Data Format Select - 3write for 24bit
         sendCommand(0x3A);
