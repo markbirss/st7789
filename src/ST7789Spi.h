@@ -111,7 +111,7 @@ class ST7789Spi : public OLEDDisplay {
       // Meshtastic firmware flips displays by default (legacy of the T-Beam)
       // Our default config here is "flipped" (relative to the bootloader screen), to counter this convention
       //uint8_t _MADCTL=ST77XX_MADCTL_RGB|ST77XX_MADCTL_MV|ST77XX_MADCTL_MY;
-      uint8_t _MADCTL=ST77XX_MADCTL_RGB|ST77XX_MADCTL_MV|ST77XX_MADCTL_MX;
+      uint8_t _MADCTL=ST77XX_MADCTL_RGB|ST77XX_MADCTL_MV|ST77XX_MADCTL_MX|ST77XX_MADCTL_MY;
 
   public:
     /* pass _cs as -1 to indicate "do not use CS pin", for cases where it is hard wired low */
