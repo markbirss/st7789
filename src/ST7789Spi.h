@@ -399,25 +399,25 @@ class ST7789Spi : public OLEDDisplay {
         sendCommand(ST77XX_MADCTL); //  4: Mem access ctrl (directions)
         WriteData(_MADCTL); 
 
-        sendCommand(ST77XX_CASET); //   5: Column addr set,
-        WriteData(0x12);
-        WriteData(0x2A);
+        //sendCommand(ST77XX_CASET); //   5: Column addr set,
+        //WriteData(0x12);
+        //WriteData(0x2A);
       
-        sendCommand(ST77XX_RASET); //   6: Row addr set,    
-        WriteData(0x00);
-        WriteData(0xC7);
+        //sendCommand(ST77XX_RASET); //   6: Row addr set,    
+        //WriteData(0x00);
+        //WriteData(0xC7);
       
-        //sendCommand(ST77XX_CASET); //   5: Column addr set, 
-        //WriteData(0x00); 
-        //WriteData(0x00);         //    XSTART = 0
-        //WriteData(0x00); 
-        //WriteData(300);          //     XEND = 300
+        sendCommand(ST77XX_CASET); //   5: Column addr set, 
+        WriteData(0x00); 
+        WriteData(0x00);         //    XSTART = 0
+        WriteData(0x00); 
+        WriteData(300);          //     XEND = 300
         
-        //sendCommand(ST77XX_RASET); //   6: Row addr set, 
-        //WriteData(0x00); 
-        //WriteData(0x00);         //    YSTART = 0
-        //WriteData(400>>8); 
-        //WriteData(400&0xFF);          //    YSTART = 400
+        sendCommand(ST77XX_RASET); //   6: Row addr set, 
+        WriteData(0x00); 
+        WriteData(0x00);         //    YSTART = 0
+        WriteData(400>>8); 
+        WriteData(400&0xFF);          //    YSTART = 400
         
         //sendCommand(ST77XX_SLPOUT); //  7: hack
         //delay(10);
