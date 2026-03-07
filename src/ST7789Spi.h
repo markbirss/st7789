@@ -385,7 +385,7 @@ class ST7789Spi : public OLEDDisplay {
         WriteData(0x64);
 
         sendCommand(ST77XX_SLPOUT); //  2: Out of sleep mode, no args, w/delay
-        delay(10);
+        delay(120);
 
         // Source Voltage Select - Use VSHP1/VSLP1/VSHN1/VSLN1
         sendCommand(0xC9);
@@ -398,12 +398,14 @@ class ST7789Spi : public OLEDDisplay {
         // Data Format Select - 3write for 24bit
         sendCommand(0x3A);
         WriteData(0x11);
-        delay(200);
       
         // Gamma Mode Setting - Mono
         sendCommand(0xB9);
         WriteData(0x20);
-        
+
+        sendCommand(0xB8); // Panel Setting
+        WriteData(0x29);   // Panel Setting: 0x29: 1-Dot inversion, Frame inversion, One Line Interlace
+      
         //sendCommand(ST77XX_MADCTL); //  4: Mem access ctrl (directions)
         //WriteData(_MADCTL); 
 
@@ -440,12 +442,11 @@ class ST7789Spi : public OLEDDisplay {
       
         sendCommand(0x38); // HPM:How Power Mode ON
       
-        //sendCommand(0xBB); // Enable Clear RAM
-        //WriteData(0xFF);  // CLR=0 ; Enable Clear RAM,clear RAM to 0
-      
         sendCommand(0x29); // DISPLAY ON
+        sendCommand(0x20); // Display Inversion Off
       
-        delay(10);
+        sendCommand(0xBB); // Enable Clear RAM
+        WriteData(0xFF);  // CLR=0 ; Enable Clear RAM,clear RAM to 0
     }
 
 
