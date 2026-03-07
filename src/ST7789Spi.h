@@ -432,8 +432,8 @@ class ST7789Spi : public OLEDDisplay {
       
         sendCommand(0x38); // HPM:How Power Mode ON
       
-        sendCommand(0xBB); // Enable Clear RAM
-        WriteData(0xFF);  // CLR=0 ; Enable Clear RAM,clear RAM to 0
+        //sendCommand(0xBB); // Enable Clear RAM
+        //WriteData(0xFF);  // CLR=0 ; Enable Clear RAM,clear RAM to 0
       
         sendCommand(0x29); // DISPLAY ON
       
