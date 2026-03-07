@@ -114,7 +114,7 @@ class ST7789Spi : public OLEDDisplay {
 
   public:
     /* pass _cs as -1 to indicate "do not use CS pin", for cases where it is hard wired low */
-    ST7789Spi(SPIClass *spiClass,uint8_t _rst, uint8_t _dc, uint8_t _cs, OLEDDISPLAY_GEOMETRY g = GEOMETRY_RAWMODE,uint16_t width=240,uint16_t height=135,int mosi=-1,int miso=-1,int clk=-1) {
+    ST7789Spi(SPIClass *spiClass,uint8_t _rst, uint8_t _dc, uint8_t _cs, OLEDDISPLAY_GEOMETRY g = GEOMETRY_RAWMODE,uint16_t width=300,uint16_t height=400,int mosi=-1,int miso=-1,int clk=-1) {
       this->_spi = spiClass;
       this->_rst = _rst;
       this->_dc  = _dc;
@@ -400,20 +400,28 @@ class ST7789Spi : public OLEDDisplay {
         sendCommand(0xBB); // Enable Clear RAM
         WriteData(0xFF);  // CLR=0 ; Enable Clear RAM,clear RAM to 0
 
-        sendCommand(ST77XX_CASET); //   5: Column addr set, 
-        WriteData(0x00); 
-        WriteData(0x00);         //    XSTART = 0
-        WriteData(0x00); 
-        WriteData(300);          //     XEND = 300
+        sendCommand(ST77XX_CASET); //   5: Column addr set,
+        WriteData(0x12);
+        WriteData(0x2B);
+      
+        sendCommand(ST77XX_RASET); //   6: Row addr set,    
+        WriteData(0x00);
+        WriteData(0xC7);
+      
+        //sendCommand(ST77XX_CASET); //   5: Column addr set, 
+        //WriteData(0x00); 
+        //WriteData(0x00);         //    XSTART = 0
+        //WriteData(0x00); 
+        //WriteData(300);          //     XEND = 300
         
-        sendCommand(ST77XX_RASET); //   6: Row addr set, 
-        WriteData(0x00); 
-        WriteData(0x00);         //    YSTART = 0
-        WriteData(400>>8); 
-        WriteData(400&0xFF);          //    YSTART = 400
+        //sendCommand(ST77XX_RASET); //   6: Row addr set, 
+        //WriteData(0x00); 
+        //WriteData(0x00);         //    YSTART = 0
+        //WriteData(400>>8); 
+        //WriteData(400&0xFF);          //    YSTART = 400
         
-        sendCommand(ST77XX_SLPOUT); //  7: hack
-        delay(10);
+        //sendCommand(ST77XX_SLPOUT); //  7: hack
+        //delay(10);
 
         // TE
         sendCommand(0x35);
