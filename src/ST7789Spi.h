@@ -290,42 +290,149 @@ class ST7789Spi : public OLEDDisplay {
   protected:
     // Send all the init commands
     virtual void sendInitCommands()
-    {
+    {   //https://github.com/IcingTomato/TomatoGFX/blob/master/src/drivers/ST7305_4P2_BW_Driver.cpp
+      
         sendCommand(ST77XX_SWRESET); //  1: Software reset, no args, w/delay
         delay(150);
 
+        // NVM Load Control
+        sendCommand(0xD6);
+        WriteData(0x17);
+        WriteData(0x02);
+      
+        // Booster Enable
+        sendCommand(0xD1);
+        WriteData(0x01);
+      
+        // Gate Voltage Setting
+        sendCommand(0xC0);
+        WriteData(0x11);
+        WriteData(0x04);
+
+        // VSHP Setting (4.8V)
+        sendCommand(0xC1);
+        WriteData(0x41);
+        WriteData(0x41);
+        WriteData(0x41);
+        WriteData(0x41);
+      
+        // VSLP Setting (0.98V)
+        sendCommand(0xC2);
+        WriteData(0x19);
+        WriteData(0x19);
+        WriteData(0x19);
+        WriteData(0x19);
+
+        // VSHN Setting (-3.6V)
+        sendCommand(0xC4);
+        WriteData(0x41);
+        WriteData(0x41);
+        WriteData(0x41);
+        WriteData(0x41);
+
+        // VSLN Setting (0.22V)
+        sendCommand(0xC5);
+        WriteData(0x19);
+        WriteData(0x19);
+        WriteData(0x19);
+        WriteData(0x19);
+
+        // OSC Setting - HPM=32Hz
+        sendCommand(0xD8);
+        WriteData(0xA6);
+        WriteData(0xE9);
+
+        // Frame Rate Control - HPM=16hz ; LPM=8hz
+        sendCommand(0xB2);
+        WriteData(0x05);
+      
+        // Update Period Gate EQ Control in HPM
+        sendCommand(0xB3);
+        WriteData(0xE5);
+        WriteData(0xF6);
+        WriteData(0x05);
+        WriteData(0x46);
+        WriteData(0x77);
+        WriteData(0x77);
+        WriteData(0x77);
+        WriteData(0x77);
+        WriteData(0x76);
+        WriteData(0x45);
+
+        // Update Period Gate EQ Control in LPM
+        sendCommand(0xB4);
+        WriteData(0x05);
+        WriteData(0x46);
+        WriteData(0x77);
+        WriteData(0x77);
+        WriteData(0x77);
+        WriteData(0x77);
+        WriteData(0x76);
+        WriteData(0x45);
+
+        // Gate Timing Control
+        sendCommand(0x62);
+        WriteData(0x32);
+        WriteData(0x03);
+        WriteData(0x1F);
+
+        // Source EQ Enable
+        sendCommand(0xB7);
+        WriteData(0x13);
         sendCommand(ST77XX_SLPOUT); //  2: Out of sleep mode, no args, w/delay
         delay(10);
 
-        sendCommand(ST77XX_COLMOD); //  3: Set color mode, 16-bit color
-        WriteData(0x55); 
-        delay(10);
+        // Gate Line Setting - 400 line
+        sendCommand(0xB0);
+        WriteData(0x64);
+      
+        // Data Format Select - 3write for 24bit
+        sendCommand(0x3A);
+        WriteData(0x11);
+        delay(200);
+        // Gamma Mode Setting - Mono
+        sendCommand(0xB9);
+        WriteData(0x20);
         
         sendCommand(ST77XX_MADCTL); //  4: Mem access ctrl (directions)
         WriteData(_MADCTL); 
-        
+
+        sendCommand(0xBB); // Enable Clear RAM
+        WriteData(0xFF);  // CLR=0 ; Enable Clear RAM,clear RAM to 0
+
         sendCommand(ST77XX_CASET); //   5: Column addr set, 
         WriteData(0x00); 
         WriteData(0x00);         //    XSTART = 0
         WriteData(0x00); 
-        WriteData(240);          //     XEND = 240
+        WriteData(300);          //     XEND = 300
         
         sendCommand(ST77XX_RASET); //   6: Row addr set, 
         WriteData(0x00); 
         WriteData(0x00);         //    YSTART = 0
-        WriteData(320>>8); 
-        WriteData(320&0xFF);          //    YSTART = 320
+        WriteData(400>>8); 
+        WriteData(400&0xFF);          //    YSTART = 400
         
         sendCommand(ST77XX_SLPOUT); //  7: hack
         delay(10);
-        
+
+        // TE
+        sendCommand(0x35);
+        WriteData(0x00);
+      
+        // Auto power down OFF
+        sendCommand(0xD0);
+        WriteData(0xFF);
+      
         sendCommand(ST77XX_NORON); //  8: Normal display on, no args, w/delay
         delay(10);
         
         sendCommand(ST77XX_DISPON); //  9: Main screen turn on, no args, delay
         delay(10);
+      
+        sendCommand(0x38); // HPM:How Power Mode ON
 
-        sendCommand(ST77XX_INVON); //  10: invert
+        sendCommand(0x29); // DISPLAY ON
+      
         delay(10);
     }
 
