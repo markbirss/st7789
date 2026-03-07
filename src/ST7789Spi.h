@@ -392,9 +392,8 @@ class ST7789Spi : public OLEDDisplay {
         WriteData(0x00);
       
         //  Memory Data Access Control (MADCTL) - MX=1, DO=1	
-        sendCommand(0x36);
+        //sendCommand(0x36);
         //WriteData(0x48);
-        WriteData(0x38);
       
         // Data Format Select - 3write for 24bit
         sendCommand(0x3A);
@@ -407,8 +406,8 @@ class ST7789Spi : public OLEDDisplay {
         sendCommand(0xB8); // Panel Setting
         WriteData(0x29);   // Panel Setting: 0x29: 1-Dot inversion, Frame inversion, One Line Interlace
       
-        //sendCommand(ST77XX_MADCTL); //  4: Mem access ctrl (directions)
-        //WriteData(_MADCTL); 
+        sendCommand(ST77XX_MADCTL); //  4: Mem access ctrl (directions)
+        WriteData(_MADCTL); 
 
         sendCommand(ST77XX_CASET); //   5: Column addr set,
         WriteData(0x12);
