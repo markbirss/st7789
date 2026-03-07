@@ -380,12 +380,20 @@ class ST7789Spi : public OLEDDisplay {
         sendCommand(0xB7);
         WriteData(0x13);
       
-        //sendCommand(ST77XX_SLPOUT); //  2: Out of sleep mode, no args, w/delay
-        //delay(10);
-
         // Gate Line Setting - 400 line
         sendCommand(0xB0);
         WriteData(0x64);
+
+        sendCommand(ST77XX_SLPOUT); //  2: Out of sleep mode, no args, w/delay
+        delay(10);
+
+        // Source Voltage Select - Use VSHP1/VSLP1/VSHN1/VSLN1
+        sendCommand(0xC9);
+        WriteData(0x00);
+      
+         //  Memory Data Access Control (MADCTL) - MX=1, DO=1	
+        sendCommand(0x36);
+        WriteData(0x48);
       
         // Data Format Select - 3write for 24bit
         sendCommand(0x3A);
