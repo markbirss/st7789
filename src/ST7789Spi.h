@@ -381,8 +381,9 @@ class ST7789Spi : public OLEDDisplay {
         WriteData(0x13);
       
         // Gate Line Setting - 400 line
-        //sendCommand(0xB0);
+        sendCommand(0xB0);
         //WriteData(0x64);
+        WriteData(0x60);
 
         sendCommand(ST77XX_SLPOUT); //  2: Out of sleep mode, no args, w/delay
         delay(120);
