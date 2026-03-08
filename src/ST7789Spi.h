@@ -382,8 +382,7 @@ class ST7789Spi : public OLEDDisplay {
       
         // Gate Line Setting - 400 line
         sendCommand(0xB0);
-        //WriteData(0x64);
-        WriteData(0x60);
+        WriteData(0x64);
 
         sendCommand(ST77XX_SLPOUT); //  2: Out of sleep mode, no args, w/delay
         delay(120);
@@ -393,8 +392,8 @@ class ST7789Spi : public OLEDDisplay {
         WriteData(0x00);
       
         //  Memory Data Access Control (MADCTL) - MX=1, DO=1	
-        //sendCommand(0x36);
-        //WriteData(0x48);
+        sendCommand(0x36);
+        WriteData(0x48);
       
         sendCommand(ST77XX_MADCTL); //  4: Mem access ctrl (directions)
         WriteData(_MADCTL);       
@@ -412,7 +411,7 @@ class ST7789Spi : public OLEDDisplay {
       
         //sendCommand(ST77XX_CASET); //   5: Column addr set,
         //WriteData(0x12);
-        //WriteData(0x2A);
+        //WriteData(0x2B);
       
         //sendCommand(ST77XX_RASET); //   6: Row addr set,    
         //WriteData(0x00);
@@ -422,13 +421,13 @@ class ST7789Spi : public OLEDDisplay {
         WriteData(0x00); 
         WriteData(0x00);         //    XSTART = 0
         WriteData(0x00); 
-        WriteData(300);          //     XEND = 300
+        WriteData(400);          //     XEND = 400
         
         sendCommand(ST77XX_RASET); //   6: Row addr set, 
         WriteData(0x00); 
         WriteData(0x00);         //    YSTART = 0
-        WriteData(400>>8); 
-        WriteData(400&0xFF);          //    YSTART = 400
+        WriteData(300>>8); 
+        WriteData(300&0xFF);          //    YSTART = 300
         
         sendCommand(ST77XX_SLPOUT); //  7: hack
         delay(10);
